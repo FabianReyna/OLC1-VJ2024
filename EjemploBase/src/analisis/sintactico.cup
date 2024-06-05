@@ -1,0 +1,67 @@
+package analisis;
+
+//importaciones
+import java_cup.runtime.Symbol;
+
+
+// parser
+parser code
+{:
+    scanner s;
+    parser(scanner s) { this.s = s; }
+
+    public void syntax_error(Symbol s){
+        System.out.println("Error Sintactico en la linea " +
+        (s.left) + " y columna " + (s.right) +
+        ". No se esperaba el componente: " + (s.value) + ".");
+    }
+
+    public void unrecovered_syntax_error(Symbol s){
+        System.out.println("Error Sintactico no recuperable en la linea " +
+        (s.left) + " y columna " + (s.right) +
+        ". No se esperaba el componente: " + (s.value) + ".");
+    }
+
+:}
+
+action code
+{:
+    String codigoUsr="";
+:}
+
+terminal String CADENA, ENTERO, DECIMAL;
+terminal FINCADENA, IMPRIMIR;
+terminal MAS, MENOS, MULT, DIV;
+terminal PAR1, PAR2;
+terminal UMENOS;
+
+nonterminal String INICIO;
+nonterminal INSTRUCCIONES, INSTRUCCION;
+nonterminal Double EXPRESION;
+
+precedence left MAS, MENOS;
+precedence left MULT, DIV;
+precedence right UMENOS;
+
+start with INICIO;
+
+INICIO ::= INSTRUCCIONES        {:  RESULT = codigoUsr;   :}
+;
+
+INSTRUCCIONES ::= INSTRUCCIONES INSTRUCCION
+                | INSTRUCCION
+;
+
+INSTRUCCION ::= IMPRIMIR PAR1 EXPRESION:a PAR2 FINCADENA    {:  codigoUsr+=a+"\n";   :}
+                | IMPRIMIR PAR1 CADENA:b PAR2 FINCADENA     {:  codigoUsr+=b+"\n";   :}
+;
+
+EXPRESION ::= MENOS EXPRESION:a               {:    RESULT = a * -1;    :}%prec UMENOS
+            | EXPRESION:a MAS EXPRESION:b     {:    RESULT = a + b;    :}
+            | EXPRESION:a MENOS EXPRESION:b   {:    RESULT = a - b;    :}
+            | EXPRESION:a MULT EXPRESION:b    {:    RESULT = a * b;    :}
+            | EXPRESION:a DIV EXPRESION:b     {:    RESULT = a / b;    :}
+            | ENTERO:a                        {:    RESULT = new Double(a);    :}
+            | DECIMAL:a                       {:    RESULT = new Double(a);    :}
+            | PAR1 EXPRESION:a PAR2           {:   RESULT = a;    :}
+;
