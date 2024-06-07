@@ -26,8 +26,8 @@ public class PatronInterprete {
     public static void main(String[] args) {
         // TODO code application logic here
         try {
-            String texto = "imprimir(\"Mi cadena\");"
-                    + "imprimir(2); imprimir(3.33);";
+            String texto = "imprimir(\"Mi cadena\"+1);"
+                    + "imprimir(2+2+2+2); imprimir(-1.33+3.33);";
             scanner s = new scanner(new BufferedReader(new StringReader(texto)));
             parser p = new parser(s);
             var resultado = p.parse();
