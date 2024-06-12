@@ -39,13 +39,24 @@ FINCADENA=";"
 BLANCOS=[\ \r\t\f\n]+
 ENTERO=[0-9]+
 DECIMAL=[0-9]+"."[0-9]+
+ID=[a-zA-z][a-zA-Z0-9_]*
 CADENA = [\"]([^\"])*[\"]
 
 //palabras reservadas
 IMPRIMIR="imprimir"
+INT="int"
+DOUBLE="double"
+STRING="string"
 
 %%
 <YYINITIAL> {IMPRIMIR} {return new Symbol(sym.IMPRIMIR, yyline, yycolumn,yytext());}
+<YYINITIAL> {INT} {return new Symbol(sym.INT, yyline, yycolumn,yytext());}
+<YYINITIAL> {DOUBLE} {return new Symbol(sym.DOUBLE, yyline, yycolumn,yytext());}
+<YYINITIAL> {STRING} {return new Symbol(sym.STRING, yyline, yycolumn,yytext());}
+
+
+
+<YYINITIAL> {ID} {return new Symbol(sym.ID, yyline, yycolumn,yytext());}
 
 <YYINITIAL> {DECIMAL} {return new Symbol(sym.DECIMAL, yyline, yycolumn,yytext());}
 <YYINITIAL> {ENTERO} {return new Symbol(sym.ENTERO, yyline, yycolumn,yytext());}

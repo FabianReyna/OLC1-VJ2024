@@ -27,7 +27,10 @@ public class PatronInterprete {
         // TODO code application logic here
         try {
             String texto = ""
-                    + "imprimir(2==\"true\");  imprimir(%2+2==3.0+1.0);$ imprimir(\"hola\"==\"HoLa\");"
+                    + "inT a = 10 + 10;"
+                    + "imprimir(a);"
+                    + "a = a + 1;"
+                    + "imprimir(a);"
                     + "";
             scanner s = new scanner(new BufferedReader(new StringReader(texto)));
             parser p = new parser(s);
