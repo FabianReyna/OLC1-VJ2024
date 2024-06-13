@@ -15,14 +15,20 @@ public class sym {
   public static final int FINCADENA = 6;
   public static final int DECIMAL = 4;
   public static final int IMPRIMIR = 7;
+  public static final int TRUE = 18;
+  public static final int IF = 20;
   public static final int UMENOS = 15;
   public static final int ID = 5;
   public static final int EQUALS = 17;
   public static final int STRING = 10;
   public static final int EOF = 0;
+  public static final int FALSE = 19;
+  public static final int LLAVE2 = 23;
   public static final int error = 1;
   public static final int PAR2 = 12;
+  public static final int LLAVE1 = 22;
   public static final int PAR1 = 11;
+  public static final int BOOL = 21;
   public static final int ENTERO = 3;
   public static final int MAS = 13;
   public static final int DOUBLE = 9;
@@ -44,7 +50,13 @@ public class sym {
   "MENOS",
   "UMENOS",
   "IGUAL",
-  "EQUALS"
+  "EQUALS",
+  "TRUE",
+  "FALSE",
+  "IF",
+  "BOOL",
+  "LLAVE1",
+  "LLAVE2"
   };
 }
 
