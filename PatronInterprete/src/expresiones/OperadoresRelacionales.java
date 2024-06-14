@@ -10,5 +10,6 @@ package expresiones;
  */
 public enum OperadoresRelacionales {
     EQUALS,
-    NOTEQUALS 
+    NOTEQUALS,
+    MENOR
 }

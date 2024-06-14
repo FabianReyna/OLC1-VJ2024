@@ -38,6 +38,7 @@ IGUAL="="
 FINCADENA=";"
 LLAVE1="{"
 LLAVE2="}"
+MENOR="<"
 BLANCOS=[\ \r\t\f\n]+
 ENTERO=[0-9]+
 DECIMAL=[0-9]+"."[0-9]+
@@ -53,6 +54,8 @@ IF="if"
 TRUE="true"
 FALSE="false"
 BOOL="bool"
+FOR="for"
+BREAK="break"
 
 %%
 <YYINITIAL> {IMPRIMIR} {return new Symbol(sym.IMPRIMIR, yyline, yycolumn,yytext());}
@@ -63,6 +66,10 @@ BOOL="bool"
 <YYINITIAL> {FALSE} {return new Symbol(sym.FALSE, yyline, yycolumn,yytext());}
 <YYINITIAL> {IF} {return new Symbol(sym.IF, yyline, yycolumn,yytext());}
 <YYINITIAL> {BOOL} {return new Symbol(sym.BOOL, yyline, yycolumn,yytext());}
+<YYINITIAL> {FOR} {return new Symbol(sym.FOR, yyline, yycolumn,yytext());}
+<YYINITIAL> {BREAK} {return new Symbol(sym.BREAK, yyline, yycolumn,yytext());}
+
+
 
 <YYINITIAL> {ID} {return new Symbol(sym.ID, yyline, yycolumn,yytext());}
 
@@ -84,6 +91,8 @@ BOOL="bool"
 <YYINITIAL> {MAS} {return new Symbol(sym.MAS, yyline, yycolumn,yytext());}
 <YYINITIAL> {MENOS} {return new Symbol(sym.MENOS, yyline, yycolumn,yytext());}
 <YYINITIAL> {IGUAL} {return new Symbol(sym.IGUAL, yyline, yycolumn,yytext());}
+<YYINITIAL> {MENOR} {return new Symbol(sym.MENOR, yyline, yycolumn,yytext());}
+
 
 <YYINITIAL> {BLANCOS} {}
 

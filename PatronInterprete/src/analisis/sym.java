@@ -9,6 +9,7 @@ package analisis;
 public class sym {
   /* terminals */
   public static final int MENOS = 14;
+  public static final int MENOR = 25;
   public static final int CADENA = 2;
   public static final int IGUAL = 16;
   public static final int INT = 8;
@@ -22,6 +23,7 @@ public class sym {
   public static final int EQUALS = 17;
   public static final int STRING = 10;
   public static final int EOF = 0;
+  public static final int BREAK = 26;
   public static final int FALSE = 19;
   public static final int LLAVE2 = 23;
   public static final int error = 1;
@@ -30,6 +32,7 @@ public class sym {
   public static final int PAR1 = 11;
   public static final int BOOL = 21;
   public static final int ENTERO = 3;
+  public static final int FOR = 24;
   public static final int MAS = 13;
   public static final int DOUBLE = 9;
   public static final String[] terminalNames = new String[] {
@@ -56,7 +59,10 @@ public class sym {
   "IF",
   "BOOL",
   "LLAVE1",
-  "LLAVE2"
+  "LLAVE2",
+  "FOR",
+  "MENOR",
+  "BREAK"
   };
 }
 

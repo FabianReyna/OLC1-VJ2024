@@ -40,6 +40,8 @@ public class Relacionales extends Instruccion {
         return switch (relacional) {
             case EQUALS ->
                 this.equals(condIzq, condDer);
+            case MENOR ->
+                this.menor(condIzq, condDer);
             default ->
                 new Errores("SEMANTICO", "Relacional Invalido", this.linea, this.col);
         };
@@ -48,7 +50,7 @@ public class Relacionales extends Instruccion {
     public Object equals(Object comp1, Object comp2) {
         var comparando1 = this.cond1.tipo.getTipo();
         var comparando2 = this.cond2.tipo.getTipo();
-        
+
         return switch (comparando1) {
             case tipoDato.ENTERO ->
                 switch (comparando2) {
@@ -77,6 +79,37 @@ public class Relacionales extends Instruccion {
                 };
             default ->
                 new Errores("SEMANTICO", "Relacional Invalido", this.linea, this.col);
+        };
+    }
+
+    public Object menor(Object comp1, Object comp2) {
+        var comparando1 = this.cond1.tipo.getTipo();
+        var comparando2 = this.cond2.tipo.getTipo();
+
+        return switch (comparando1) {
+            case tipoDato.ENTERO ->
+                switch (comparando2) {
+                    case tipoDato.ENTERO ->
+                        (int) comp1 < (int) comp2;
+                    case tipoDato.DECIMAL ->
+                        (int) comp1 < (double) comp2;
+                    default ->
+                        new Errores("SEMANTICO", "Relacional invaldo",
+                        this.linea, this.col);
+                };
+            case tipoDato.DECIMAL ->
+                switch (comparando2) {
+                    case tipoDato.ENTERO ->
+                        (double) comp1 < (int) comp2;
+                    case tipoDato.DECIMAL ->
+                        (double) comp1 < (double) comp2;
+                    default ->
+                        new Errores("SEMANTICO", "Relacional invaldo",
+                        this.linea, this.col);
+                };
+            default ->
+                new Errores("SEMANTICO", "Relacional invaldo",
+                this.linea, this.col);
         };
     }
 }
