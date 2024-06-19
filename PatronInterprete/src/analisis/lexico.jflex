@@ -56,6 +56,7 @@ FALSE="false"
 BOOL="bool"
 FOR="for"
 BREAK="break"
+VOID="void"
 
 %%
 <YYINITIAL> {IMPRIMIR} {return new Symbol(sym.IMPRIMIR, yyline, yycolumn,yytext());}
@@ -68,6 +69,8 @@ BREAK="break"
 <YYINITIAL> {BOOL} {return new Symbol(sym.BOOL, yyline, yycolumn,yytext());}
 <YYINITIAL> {FOR} {return new Symbol(sym.FOR, yyline, yycolumn,yytext());}
 <YYINITIAL> {BREAK} {return new Symbol(sym.BREAK, yyline, yycolumn,yytext());}
+<YYINITIAL> {VOID} {return new Symbol(sym.VOID, yyline, yycolumn,yytext());}
+
 
 
 

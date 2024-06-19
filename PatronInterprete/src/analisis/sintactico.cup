@@ -15,6 +15,7 @@ import instrucciones.AsignacionVar;
 import instrucciones.If;
 import instrucciones.For;
 import instrucciones.Break;
+import instrucciones.Metodo;
 
 //expresiones
 import expresiones.Nativo;
@@ -61,6 +62,7 @@ terminal TRUE, FALSE, IF, BOOL;
 terminal LLAVE1, LLAVE2;
 terminal FOR, MENOR;
 terminal String BREAK;
+terminal VOID;
 
 //no terminales
 nonterminal LinkedList<Instruccion> INICIO, INSTRUCCIONES;
@@ -71,6 +73,7 @@ nonterminal Instruccion CFOR, ACTUALIZA_FOR;
 nonterminal Instruccion BREAKK;
 nonterminal Tipo TIPOS;
 nonterminal Instruccion EXPRESION;
+nonterminal Instruccion METODO;
 
 precedence left EQUALS, MENOR;
 precedence left MAS;
@@ -91,6 +94,7 @@ INSTRUCCION ::= IMPRESION: a        {:   RESULT=a;   :}
               | SIF:a               {:   RESULT=a;   :}
               | CFOR:a              {:   RESULT=a;   :}
               | BREAKK:a            {:   RESULT=a;   :}
+              | METODO:a            {:   RESULT=a;   :}
               | error FINCADENA
 ;
 
@@ -101,6 +105,9 @@ DECLARACION ::= TIPOS:a ID:b IGUAL EXPRESION:c FINCADENA    {:   RESULT = new De
 ;
 
 ASIGNACION ::= ID:a IGUAL EXPRESION:b FINCADENA  {:   RESULT=new AsignacionVar(a, b, aleft, aright);  :}
+;
+
+METODO ::= TIPOS:a ID:b PAR1 PAR2 LLAVE1 INSTRUCCIONES:c LLAVE2   {:   RESULT=new Metodo(b, c, a, aleft, aright );   :}
 ;
 
 SIF ::= IF PAR1 EXPRESION:a PAR2 LLAVE1 INSTRUCCIONES:b LLAVE2  {:   RESULT = new If(a, b, aleft, aright);   :}
@@ -120,6 +127,7 @@ TIPOS ::= INT       {:   RESULT=new Tipo(tipoDato.ENTERO);   :}
         | DOUBLE    {:   RESULT=new Tipo(tipoDato.DECIMAL);   :}
         | STRING    {:   RESULT=new Tipo(tipoDato.CADENA);   :}
         | BOOL      {:   RESULT=new Tipo(tipoDato.BOOLEANO);   :}
+        | VOID      {:   RESULT=new Tipo(tipoDato.VOID);    :}
 ;
 
 EXPRESION ::= MENOS EXPRESION:a             {:   RESULT = new Aritmeticas(a, OperadoresAritmeticos.NEGACION, aleft, aright);   :} %prec UMENOS

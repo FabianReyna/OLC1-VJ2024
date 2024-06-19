@@ -8,6 +8,9 @@ import abstracto.Instruccion;
 import analisis.parser;
 import analisis.scanner;
 import excepciones.Errores;
+import instrucciones.AsignacionVar;
+import instrucciones.Declaracion;
+import instrucciones.Metodo;
 import java.io.BufferedReader;
 import java.io.StringReader;
 import java.util.LinkedList;
@@ -65,7 +68,7 @@ public class Principal extends javax.swing.JFrame {
         jLabel1.setText("Entrada");
 
         jTextArea1.setColumns(20);
-        jTextArea1.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jTextArea1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jTextArea1.setRows(5);
         jScrollPane1.setViewportView(jTextArea1);
 
@@ -91,7 +94,7 @@ public class Principal extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 478, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 586, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
@@ -109,12 +112,12 @@ public class Principal extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addComponent(jButton1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31)
                 .addComponent(jLabel2)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(37, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -128,23 +131,42 @@ public class Principal extends javax.swing.JFrame {
             scanner s = new scanner(new BufferedReader(new StringReader(texto)));
             parser p = new parser(s);
             var resultado = p.parse();
+
             var ast = new Arbol((LinkedList<Instruccion>) resultado.value);
             var tabla = new tablaSimbolos();
             tabla.setNombre("GLOBAL");
             ast.setConsola("");
+            ast.setTablaGlobal(tabla);
+
             LinkedList<Errores> lista = new LinkedList<>();
             lista.addAll(s.listaErrores);
             lista.addAll(p.listaErrores);
+
             for (var a : ast.getInstrucciones()) {
                 if (a == null) {
                     continue;
                 }
 
-                var res = a.interpretar(ast, tabla);
-                if (res instanceof Errores) {
-                    lista.add((Errores) res);
+                if (a instanceof Metodo) {
+                    ast.addFunciones(a);
                 }
             }
+            for (var a : ast.getInstrucciones()) {
+                if (a == null) {
+                    continue;
+                }
+
+                if (a instanceof Declaracion || a instanceof AsignacionVar) {
+                    var res = a.interpretar(ast, tabla);
+                    if (res instanceof Errores errores) {
+                        lista.add(errores);
+                    }
+                }
+
+            }
+
+            System.out.println("Validar almacenamiento de funciones y "
+                    + "Variables globlales");
             jTextArea2.setText(ast.getConsola());
             for (var i : lista) {
                 System.out.println(i);

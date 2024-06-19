@@ -33,6 +33,7 @@ public class sym {
   public static final int BOOL = 21;
   public static final int ENTERO = 3;
   public static final int FOR = 24;
+  public static final int VOID = 27;
   public static final int MAS = 13;
   public static final int DOUBLE = 9;
   public static final String[] terminalNames = new String[] {
@@ -62,7 +63,8 @@ public class sym {
   "LLAVE2",
   "FOR",
   "MENOR",
-  "BREAK"
+  "BREAK",
+  "VOID"
   };
 }
 
