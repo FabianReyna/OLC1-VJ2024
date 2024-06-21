@@ -5,6 +5,7 @@
 package instrucciones;
 
 import abstracto.Instruccion;
+import java.util.HashMap;
 import java.util.LinkedList;
 import simbolo.Arbol;
 import simbolo.Tipo;
@@ -23,12 +24,13 @@ miMetodo(10);
 public class Metodo extends Instruccion {
 
     public String id;
-    // parametros quedan pendientes
+    public LinkedList<HashMap> parametros;
     public LinkedList<Instruccion> instrucciones;
 
-    public Metodo(String id, LinkedList<Instruccion> instrucciones, Tipo tipo, int linea, int col) {
+    public Metodo(String id, LinkedList<HashMap> parametros, LinkedList<Instruccion> instrucciones, Tipo tipo, int linea, int col) {
         super(tipo, linea, col);
         this.id = id;
+        this.parametros = parametros;
         this.instrucciones = instrucciones;
     }
 

@@ -20,6 +20,7 @@ public class sym {
   public static final int IF = 20;
   public static final int UMENOS = 15;
   public static final int ID = 5;
+  public static final int COMA = 28;
   public static final int EQUALS = 17;
   public static final int STRING = 10;
   public static final int EOF = 0;
@@ -34,6 +35,7 @@ public class sym {
   public static final int ENTERO = 3;
   public static final int FOR = 24;
   public static final int VOID = 27;
+  public static final int EXECUTE = 29;
   public static final int MAS = 13;
   public static final int DOUBLE = 9;
   public static final String[] terminalNames = new String[] {
@@ -64,7 +66,9 @@ public class sym {
   "FOR",
   "MENOR",
   "BREAK",
-  "VOID"
+  "VOID",
+  "COMA",
+  "EXECUTE"
   };
 }
 

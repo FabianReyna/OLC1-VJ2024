@@ -39,6 +39,7 @@ FINCADENA=";"
 LLAVE1="{"
 LLAVE2="}"
 MENOR="<"
+COMA=","
 BLANCOS=[\ \r\t\f\n]+
 ENTERO=[0-9]+
 DECIMAL=[0-9]+"."[0-9]+
@@ -57,6 +58,7 @@ BOOL="bool"
 FOR="for"
 BREAK="break"
 VOID="void"
+EXECUTE="execute"
 
 %%
 <YYINITIAL> {IMPRIMIR} {return new Symbol(sym.IMPRIMIR, yyline, yycolumn,yytext());}
@@ -70,8 +72,7 @@ VOID="void"
 <YYINITIAL> {FOR} {return new Symbol(sym.FOR, yyline, yycolumn,yytext());}
 <YYINITIAL> {BREAK} {return new Symbol(sym.BREAK, yyline, yycolumn,yytext());}
 <YYINITIAL> {VOID} {return new Symbol(sym.VOID, yyline, yycolumn,yytext());}
-
-
+<YYINITIAL> {EXECUTE} {return new Symbol(sym.EXECUTE, yyline, yycolumn,yytext());}
 
 
 <YYINITIAL> {ID} {return new Symbol(sym.ID, yyline, yycolumn,yytext());}
@@ -95,6 +96,8 @@ VOID="void"
 <YYINITIAL> {MENOS} {return new Symbol(sym.MENOS, yyline, yycolumn,yytext());}
 <YYINITIAL> {IGUAL} {return new Symbol(sym.IGUAL, yyline, yycolumn,yytext());}
 <YYINITIAL> {MENOR} {return new Symbol(sym.MENOR, yyline, yycolumn,yytext());}
+<YYINITIAL> {COMA} {return new Symbol(sym.COMA, yyline, yycolumn,yytext());}
+
 
 
 <YYINITIAL> {BLANCOS} {}

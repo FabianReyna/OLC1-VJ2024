@@ -10,6 +10,7 @@ import analisis.scanner;
 import excepciones.Errores;
 import instrucciones.AsignacionVar;
 import instrucciones.Declaracion;
+import instrucciones.Execute;
 import instrucciones.Metodo;
 import java.io.BufferedReader;
 import java.io.StringReader;
@@ -142,6 +143,7 @@ public class Principal extends javax.swing.JFrame {
             lista.addAll(s.listaErrores);
             lista.addAll(p.listaErrores);
 
+            //almacenar funciones, metodos o structs
             for (var a : ast.getInstrucciones()) {
                 if (a == null) {
                     continue;
@@ -151,6 +153,8 @@ public class Principal extends javax.swing.JFrame {
                     ast.addFunciones(a);
                 }
             }
+
+            //declaraciones o asignaciones globales
             for (var a : ast.getInstrucciones()) {
                 if (a == null) {
                     continue;
@@ -165,6 +169,24 @@ public class Principal extends javax.swing.JFrame {
 
             }
 
+            //execute -> start_with
+            Execute e = null;
+            for (var a : ast.getInstrucciones()) {
+                if (a == null) {
+                    continue;
+                }
+                if (a instanceof Execute execute) {
+                    e = execute;
+                    break;
+                }
+            }
+
+            var resultadoExecute = e.interpretar(ast, tabla);
+            if(resultadoExecute instanceof Errores){
+                System.out.println("Ya no sale compi1");
+            }
+            
+            
             System.out.println("Validar almacenamiento de funciones y "
                     + "Variables globlales");
             jTextArea2.setText(ast.getConsola());
