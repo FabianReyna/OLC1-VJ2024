@@ -112,4 +112,9 @@ public class Relacionales extends Instruccion {
                 this.linea, this.col);
         };
     }
+
+    @Override
+    public String generarast(Arbol arbol, String anterior) {
+        return "";
+    }
 }

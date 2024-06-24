@@ -18,6 +18,7 @@ import instrucciones.For;
 import instrucciones.Break;
 import instrucciones.Metodo;
 import instrucciones.Execute;
+import instrucciones.Llamada;
 
 //expresiones
 import expresiones.Nativo;
@@ -79,6 +80,7 @@ nonterminal Instruccion METODO;
 nonterminal LinkedList<HashMap> PARAMS;
 nonterminal Instruccion EXECUTEE;
 nonterminal LinkedList<Instruccion> PARAMSCALL;
+nonterminal Instruccion LLAMADA;
 
 precedence left EQUALS, MENOR;
 precedence left MAS;
@@ -101,6 +103,7 @@ INSTRUCCION ::= IMPRESION: a        {:   RESULT=a;   :}
               | BREAKK:a            {:   RESULT=a;   :}
               | METODO:a            {:   RESULT=a;   :}
               | EXECUTEE:a          {:   RESULT=a;   :}
+              | LLAMADA:a           {:   RESULT=a;   :}
               | error FINCADENA
 ;
 
@@ -134,6 +137,10 @@ PARAMS ::= PARAMS:a COMA TIPOS:b ID:c   {:
 
 EXECUTEE ::=  EXECUTE ID:a PAR1 PARAMSCALL:b PAR2 FINCADENA     {:   RESULT = new Execute(a, b, aleft, aright );   :}
             | EXECUTE ID:a PAR1 PAR2 FINCADENA                  {:   RESULT = new Execute(a, new LinkedList<Instruccion>(), aleft, aright );   :}
+;
+
+LLAMADA ::= ID:a PAR1 PARAMSCALL:b PAR2 FINCADENA               {:  RESULT= new Llamada(a, b, aleft, aright);    :}
+          | ID:a PAR1 PAR2 FINCADENA                            {:  RESULT= new Llamada(a, new LinkedList<Instruccion>(), aleft, aright);    :}    
 ;
 
 PARAMSCALL ::= PARAMSCALL:a COMA EXPRESION:e    {:  RESULT = a;
