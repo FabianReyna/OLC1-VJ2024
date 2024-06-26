@@ -181,12 +181,30 @@ public class Principal extends javax.swing.JFrame {
                 }
             }
 
-            var resultadoExecute = e.interpretar(ast, tabla);
-            if(resultadoExecute instanceof Errores){
-                System.out.println("Ya no sale compi1");
+            //var resultadoExecute = e.interpretar(ast, tabla);
+            //if (resultadoExecute instanceof Errores) {
+            //    System.out.println("Ya no sale compi1");
+           // }
+
+            //generar AST
+            String cadena = "digraph ast{\n";
+            cadena += "nINICIO[label=\"INICIO\"];\n";
+            cadena += "nINSTRUCCIONES[label=\"INSTRUCCIONES\"];\n";
+            cadena += "nINICIO -> nINSTRUCCIONES;\n";
+
+            for (var i : ast.getInstrucciones()) {
+                if (i == null) {
+                    continue;
+                }
+                String nodoAux = "n" + ast.getContador();
+                cadena += nodoAux + "[label=\"INSTRUCCION\"];\n";
+                cadena += "nINSTRUCCIONES -> " + nodoAux + ";\n";
+                cadena += i.generarast(ast, nodoAux);
             }
-            
-            
+
+            cadena += "\n}";
+            System.out.println(cadena);
+
             System.out.println("Validar almacenamiento de funciones y "
                     + "Variables globlales");
             jTextArea2.setText(ast.getConsola());

@@ -32,13 +32,13 @@ public class Nativo extends Instruccion {
         String nodoNativo = "n" + arbol.getContador();//n1
         String nodoValor = "n" + arbol.getContador();//n2
 
-        String resultado = anterior + " -> " + nodoNativo;
+        String resultado = anterior + " -> " + nodoNativo+";\n";
 
         resultado += nodoNativo + "[label=\"NATIVO\"];\n";
         resultado += nodoValor + "[label=\""
                 + this.valor.toString() + "\"];\n";
 
-        resultado += nodoNativo + " -> " + nodoValor;
+        resultado += nodoNativo + " -> " + nodoValor+";\n";
         return resultado;
 
     }

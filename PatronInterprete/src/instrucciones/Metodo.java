@@ -46,7 +46,11 @@ public class Metodo extends Instruccion {
 
     @Override
     public String generarast(Arbol arbol, String anterior) {
-        return "";
+        String resultado = "";
+        for (var i : this.instrucciones) {
+            resultado += i.generarast(arbol, anterior);
+        }
+        return resultado;
     }
 }
 
