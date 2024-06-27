@@ -1,0 +1,17 @@
+{
+  "name": "ejemplojison",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "jison":"jison src/analizador.jison && move analizador.js build",
+    "build":"tsc -w",
+    "start":"node build/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "jison": "^0.4.18"
+  }
+}
