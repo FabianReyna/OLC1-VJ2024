@@ -1,0 +1,19 @@
+{
+  "name": "interpretejison",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc -w",
+    "start": "node build/index.js",
+    "test": "nodemon build/index.js",
+    "jison":"jison src/analizador.jison && move analizador.js build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "jison": "^0.4.18",
+    "nodemon": "^3.1.4"
+  }
+}
